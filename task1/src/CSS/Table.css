@@ -1,0 +1,71 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    max-width: 1200px;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    position: relative;
+  }
+  
+  .resizable-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .resize-handle {
+    width: 10px;
+    height: 100%;
+    cursor: col-resize;
+    background-color: transparent;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+  }
+
+
+  .select-container {
+    margin-left: 10px;
+    display: inline-block;
+    position: relative;
+    height: 40px;
+    max-width: 160px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    color: black;
+    border-radius: 4px;
+    background-color: white;
+    appearance: none; /* Убирает стандартные стрелки */
+    -webkit-appearance: none; /* Убирает стандартные стрелки для Safari */
+    -moz-appearance: none; /* Убирает стандартные стрелки для Firefox */
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+  }
+  
+  .select-container::after {
+    content: '▼';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 12px;
+    color: #555;
+  }

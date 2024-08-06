@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import "../CSS/Table.css";
 import {UsersDTO, UserDTO} from "../DTO/UsersDTO";
+import { Select } from "./Select";
 
 interface Props {
   data: UsersDTO | undefined,
@@ -11,10 +12,10 @@ export default function Table({ data, openModal }: Props) {
   const [columnWidths, setColumnWidths] = useState([150, 150, 150, 150, 150]);
   const [sortedData, setSortedData] = useState<UsersDTO>()
   const tableRef = useRef(null);
-  const [value1, setValue1] = useState("none");
-  const [value2, setValue2] = useState("none");
-  const [value3, setValue3] = useState("none");
-  const [value4, setValue4] = useState("none");
+  const [initials, setInitials] = useState("none");
+  const [age, setAge] = useState("none");
+  const [gender, setGender] = useState("none");
+  const [adress, setAdress] = useState("none");
 
   const options = [
     { name: "Без сортировки", value: "nosort" },
@@ -52,43 +53,43 @@ export default function Table({ data, openModal }: Props) {
   ) {
     switch (index) {
       case 0:
-        setValue1(event.target.value);
-        setValue2('none');
-        setValue3('none');
-        setValue4('none');
+        setInitials(event.target.value);
+        setAge('none');
+        setGender('none');
+        setAdress('none');
         sortHandler("firstName", event.target.value)
         break;
       case 1:
-        setValue2(event.target.value);
-        setValue1('none');
-        setValue3('none');
-        setValue4('none');
+        setAge(event.target.value);
+        setInitials('none');
+        setGender('none');
+        setAdress('none');
         sortHandler("age" as keyof UsersDTO, event.target.value)
         break;
       case 2:
-        setValue3(event.target.value);
-        setValue1('none');
-        setValue2('none');
-        setValue4('none');
+        setGender(event.target.value);
+        setInitials('none');
+        setAge('none');
+        setAdress('none');
         sortHandler("gender" as keyof UsersDTO, event.target.value)
         break;
       case 4:
-        setValue4(event.target.value);
-        setValue1('none');
-        setValue2('none');
-        setValue3('none');
+        setAdress(event.target.value);
+        setInitials('none');
+        setAge('none');
+        setGender('none');
         sortHandler("address" as keyof UsersDTO, event.target.value)
         break;
     }
     
   }
 
-  function sortHandler(key: string | 'address', direction: string) {
+  function sortHandler(key: keyof UserDTO, direction: string) {
     setSortedData(data)
     let arr = data?.users
     if (!arr) return 0
     if (direction === 'nosort') data = sortedData
-    console.log(value2)
+    console.log(age)
     if (key == 'address') {
         const sortedRows = arr.sort((a, b) => {
         if (a.address.city < b.address.city) {
@@ -152,8 +153,8 @@ export default function Table({ data, openModal }: Props) {
               <div className="resizable-header">
                 ФИО
                 <div className="select-container">
-                  <select
-                    value={value1}
+                  {/* <select
+                    value={initials}
                     onChange={(e) => sortingChange(e, 0)}
                     className="select"
                     style={{ width: columnWidths[0] }}
@@ -163,7 +164,8 @@ export default function Table({ data, openModal }: Props) {
                         {option.name}
                       </option>
                     ))}
-                  </select>
+                  </select> */}
+                  <Select value={initials} width={columnWidths[0]} options={options} name={0} sortingChange={sortingChange}></Select>
                 </div>
                 <div
                   className="resize-handle"
@@ -176,7 +178,7 @@ export default function Table({ data, openModal }: Props) {
                 Возраст
                 <div className="select-container">
                   <select
-                    value={value2}
+                    value={age}
                     onChange={(e) => sortingChange(e, 1)}
                     className="select"
                     style={{ width: columnWidths[1] }}
@@ -199,7 +201,7 @@ export default function Table({ data, openModal }: Props) {
                 Пол
                 <div className="select-container">
                   <select
-                    value={value3}
+                    value={gender}
                     onChange={(e) => sortingChange(e, 2)}
                     className="select"
                     style={{ width: columnWidths[2] }}
@@ -231,7 +233,7 @@ export default function Table({ data, openModal }: Props) {
                 Адресс
                 <div className="select-container">
                   <select
-                    value={value4}
+                    value={adress}
                     onChange={(e) => sortingChange(e, 4)}
                     className="select"
                     style={{ width: columnWidths[4] }}

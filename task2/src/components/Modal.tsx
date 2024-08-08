@@ -5,8 +5,8 @@ import { ITask } from "../DTO/Task";
 interface Props {
     isOpen: boolean,
     onClose: () => void,
-    changeValue: [string, string] | undefined,
-    changeTaskValue: (v: [string, string] | undefined) => void,
+    changeValue: [string, ITask] | undefined,
+    changeTaskValue: (v: [string, ITask] | undefined) => void,
     increment: () => void
 }
 
@@ -21,10 +21,11 @@ export const Modal = ({isOpen, onClose, changeValue, changeTaskValue, increment}
     // } else {
     //     setOldData(JSON.parse(changeValue[1]))
     // }
+    const [data, setData] = useState<ITask>({title: '', backgroundId: 0, description: '', date: ''})
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [date, setDate] = useState("");
-    const [data, setData] = useState<ITask>({title: '', backgroundId: 0, description: '', date: ''})
+    
     
     // console.log(oldData)
 
@@ -49,8 +50,9 @@ export const Modal = ({isOpen, onClose, changeValue, changeTaskValue, increment}
   
   };
 
-  function modifyTask(changeValue: [string, string]) {
-    setData(JSON.parse(changeValue[1]))
+  function modifyTask(changeValue: [string, ITask]) {
+    setData(changeValue[1])
+    console.log(data)
     const task: ITask = {
       title: title || data.title,
       description: description || data.description,
@@ -112,7 +114,7 @@ export const Modal = ({isOpen, onClose, changeValue, changeTaskValue, increment}
               Заголовок
             </label>
             <input
-              className="max-w-[250px] p-2 rounded-lg text-black"
+              className="max-w-[250px] p-2 rounded-lg"
               type="text"
               id="title"
               value={title}
@@ -130,7 +132,7 @@ export const Modal = ({isOpen, onClose, changeValue, changeTaskValue, increment}
             </label>
             <textarea
               id="description"
-              className="w-[70%] p-2 rounded-lg text-black"
+              className="w-[70%] p-2 rounded-lg "
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
@@ -144,7 +146,7 @@ export const Modal = ({isOpen, onClose, changeValue, changeTaskValue, increment}
             <input
               type="date"
               id="date"
-              className="p-1 rounded-lg text-black"
+              className="p-1 rounded-lg "
               value={date}
               onChange={(e) => {
                 setDate(e.target.value);

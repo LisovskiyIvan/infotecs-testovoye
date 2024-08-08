@@ -3,12 +3,13 @@ import { useState } from "react";
 import { Modal } from "./components/Modal";
 import { TaskList } from "./components/TaskList";
 import { Title } from "./components/Title";
+import { ITask } from "./DTO/Task";
 
 function App() {
 
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [changeValue, setChangeValue] = useState<[string, string] | undefined>()
+  const [changeValue, setChangeValue] = useState<[string, ITask] | undefined>()
   const [counter, setCounter] = useState(0)
 
   const openModal = () => {
@@ -19,7 +20,7 @@ function App() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  function changeTaskValue(v: [string, string] | undefined) {
+  function changeTaskValue(v: [string, ITask] | undefined) {
       setChangeValue(v)
   }
   function buttonHandler() {

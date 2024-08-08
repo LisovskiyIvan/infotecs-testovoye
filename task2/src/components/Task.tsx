@@ -1,17 +1,16 @@
 import { ITask } from "../DTO/Task";
 
 interface Props {
-    value: [string, string],
+    value: [string, ITask],
     openModal: () => void,
-    changeTaskValue: (v: [string, string]) => void,
+    changeTaskValue: (v: [string, ITask]) => void,
     increment: () => void
 }
 
 export const Task = ({ value, openModal, changeTaskValue, increment }: Props) => {
 
 //  const colors = ['teal', 'cyan', 'lime', 'emerald', 'sky']
-
-  const data: ITask = JSON.parse(value[1]);
+  const data: ITask = value[1];
 
   function deleteTask() {
     localStorage.removeItem(value[0])

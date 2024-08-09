@@ -18,7 +18,7 @@ export default function Table({ data, openModal }: Props) {
   const [adress, setAdress] = useState("none");
 
   const options = [
-    { name: "Без сортировки", value: "nosort" },
+    { name: "", value: "nosort" },
     { name: "По возрастанию", value: "asc" },
     { name: "По убыванию", value: "desc" },
   ];
@@ -64,21 +64,21 @@ export default function Table({ data, openModal }: Props) {
         setInitials('none');
         setGender('none');
         setAdress('none');
-        sortHandler("age" as keyof UsersDTO, event.target.value)
+        sortHandler("age", event.target.value)
         break;
       case 2:
         setGender(event.target.value);
         setInitials('none');
         setAge('none');
         setAdress('none');
-        sortHandler("gender" as keyof UsersDTO, event.target.value)
+        sortHandler("gender", event.target.value)
         break;
       case 4:
         setAdress(event.target.value);
         setInitials('none');
         setAge('none');
         setGender('none');
-        sortHandler("address" as keyof UsersDTO, event.target.value)
+        sortHandler("address", event.target.value)
         break;
     }
     
@@ -91,7 +91,7 @@ export default function Table({ data, openModal }: Props) {
     if (direction === 'nosort') data = sortedData
     console.log(age)
     if (key == 'address') {
-        const sortedRows = arr.sort((a, b) => {
+        arr.sort((a, b) => {
         if (a.address.city < b.address.city) {
           return direction === 'asc' ? -1 : 1;
         }
@@ -102,7 +102,7 @@ export default function Table({ data, openModal }: Props) {
       });
       // setSortedData(sortedRows);
     } else {
-      const sortedRows = arr.sort((a, b) => {
+      arr.sort((a, b) => {
         if (a[key] < b[key]) {
           return direction === 'asc' ? -1 : 1;
         }
@@ -111,7 +111,7 @@ export default function Table({ data, openModal }: Props) {
         }
         return 0;
       });
-      setSortedData(sortedRows);
+      
     }
     
       

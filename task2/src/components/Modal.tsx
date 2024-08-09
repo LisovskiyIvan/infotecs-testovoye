@@ -15,32 +15,15 @@ export const Modal = ({isOpen, onClose, changeValue, changeTaskValue, increment}
     if (!isOpen) {
         return null;
       }
-    // const [oldData, setOldData] = useState<ITask | null>()
-    // if (!changeValue) {
-    //     setOldData(null)
-    // } else {
-    //     setOldData(JSON.parse(changeValue[1]))
-    // }
-    const [data, setData] = useState<ITask>({title: '', backgroundId: 0, description: '', date: ''})
+  
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [date, setDate] = useState("");
-    
-    
-    // console.log(oldData)
-
-    // if (changeValue != undefined) {
-    //     const data: ITask = JSON.parse(changeValue[1])
-    //     setOldData(data)
-        
-    // }
-    
 
     
-
   
   const [error, setError] = useState(false);
-  // const [success, setSuccess] = useState(false);
+  
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -51,13 +34,12 @@ export const Modal = ({isOpen, onClose, changeValue, changeTaskValue, increment}
   };
 
   function modifyTask(changeValue: [string, ITask]) {
-    setData(changeValue[1])
-    console.log(data)
+  
     const task: ITask = {
-      title: title || data.title,
-      description: description || data.description,
-      date: date || data.date,
-      backgroundId: data.backgroundId
+      title: title ,
+      description: description,
+      date: date,
+      backgroundId: Math.floor(Math.random() * 5)
     }
     localStorage.setItem(changeValue[0], JSON.stringify(task))
 
@@ -86,7 +68,7 @@ export const Modal = ({isOpen, onClose, changeValue, changeTaskValue, increment}
       JSON.stringify(task)
     );
 
-    // setSuccess(true)
+
     setTitle("");
     setDescription("");
     setDate("");
@@ -114,7 +96,7 @@ export const Modal = ({isOpen, onClose, changeValue, changeTaskValue, increment}
               Заголовок
             </label>
             <input
-              className="max-w-[250px] p-2 rounded-lg"
+              className="max-w-[250px] p-2 rounded-lg text-black"
               type="text"
               id="title"
               value={title}
@@ -123,7 +105,7 @@ export const Modal = ({isOpen, onClose, changeValue, changeTaskValue, increment}
                 setError(false);
               }}
             />
-            {data.title && <div className="mt-2">Прошлый заголовок: {data.title}</div>}
+            
           </div>
 
           <div className="flex flex-col items-center pb-4 mb-2 bg-black w-[65%] rounded-lg">
@@ -132,11 +114,11 @@ export const Modal = ({isOpen, onClose, changeValue, changeTaskValue, increment}
             </label>
             <textarea
               id="description"
-              className="w-[70%] p-2 rounded-lg "
+              className="w-[70%] p-2 rounded-lg text-black"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
-            {data.description && <div className="mt-2">Прошлое описание: {data.description}</div>}
+       
           </div>
 
           <div className="flex flex-col items-center pb-4 mb-2 bg-black w-[65%] rounded-lg">
@@ -146,14 +128,14 @@ export const Modal = ({isOpen, onClose, changeValue, changeTaskValue, increment}
             <input
               type="date"
               id="date"
-              className="p-1 rounded-lg "
+              className="p-1 rounded-lg text-black"
               value={date}
               onChange={(e) => {
                 setDate(e.target.value);
                 setError(false);
               }}
             />
-            {data.date && <div className="mt-2">Прошлая дата: {data.date}</div>}
+            
           </div>
 
           <button
